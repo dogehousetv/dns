@@ -33,12 +33,38 @@ resource "cloudflare_record" "dogehouseonline" {
 }
 
 resource "cloudflare_zone" "dogehousehost" {
-    zone = "dogehouse.online"
+    zone = "dogehouse.host"
     plan = "free"
 }
 
 resource "cloudflare_record" "dogehousehost" {
-    zone_id = cloudflare_zone.dogehouseonline.id
+    zone_id = cloudflare_zone.dogehousehost.id
+    name    = "@"
+    value   = cloudflare_zone.dogehouseonline.zone
+    type    = "CNAME"
+    ttl     = 3600
+}
+
+resource "cloudflare_zone" "dogehousefun" {
+    zone = "dogehouse.fun"
+    plan = "free"
+}
+
+resource "cloudflare_record" "dogehousefun" {
+    zone_id = cloudflare_zone.dogehousefun.id
+    name    = "@"
+    value   = cloudflare_zone.dogehouseonline.zone
+    type    = "CNAME"
+    ttl     = 3600
+}
+
+resource "cloudflare_zone" "dogehouseplus" {
+    zone = "dogehouse.plus"
+    plan = "free"
+}
+
+resource "cloudflare_record" "dogehouseplus" {
+    zone_id = cloudflare_zone.dogehouseplus.id
     name    = "@"
     value   = cloudflare_zone.dogehouseonline.zone
     type    = "CNAME"
